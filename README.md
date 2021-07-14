@@ -1,10 +1,10 @@
 # dotfiles
 
+I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which allows me to store some private data inside my password manager by using [templates](https://github.com/twpayne/chezmoi/blob/master/docs/TEMPLATING.md), **I would recommend to just copy the bits and files that you're interested in**.
+
 <p align="center">
   <img src="https://github.com/mercxry/dotfiles/blob/main/assets/neofetch.png?raw=true" alt="Neofetch"/>
 </p>
-
-I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which allows me to store some private data inside my password manager by using [templates](https://github.com/twpayne/chezmoi/blob/master/docs/TEMPLATING.md), **I would recommend to just copy the bits and files that you're interested in**.
 
 ## Table of Contents
 
