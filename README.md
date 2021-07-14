@@ -33,7 +33,7 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
 1. Clone repository
 
     ```sh
-    git clone git@github.com:mercxry/dotfiles.git && cd dotfiles
+    chezmoi init mercxry
     ```
 
 2. Install [Homebrew](https://brew.sh)
