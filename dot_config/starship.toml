@@ -1,0 +1,156 @@
+# Language symbol should be at the start
+format = """
+$directory\
+$username\
+$hostname\
+$shlvl\
+$kubernetes\
+$vcsh\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$aws\
+$gcloud\
+$openstack\
+$cmake\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$crystal\
+$lua\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+$env_var\
+$cmd_duration\
+$line_break\
+$character\
+"""
+
+add_newline = false
+
+[line_break]
+disabled = true
+
+[character]
+success_symbol = "[λ](bold green)"
+error_symbol = "[λ](bold red)"
+
+[cmd_duration]
+disabled = true
+
+[git_branch]
+symbol = " "
+style = "bold blue"
+format = "[$symbol$branch]($style) "
+
+[nodejs]
+symbol = " "
+format = "[$symbol]($style)"
+
+[aws]
+symbol = " "
+format = "[$symbol]($style)"
+
+[conda]
+symbol = " "
+format = "[$symbol]($style)"
+
+[dart]
+symbol = " "
+format = "[$symbol]($style)"
+
+[docker_context]
+symbol = " "
+format = "[$symbol]($style)"
+
+[elixir]
+symbol = " "
+format = "[$symbol]($style)"
+
+[elm]
+symbol = " "
+format = "[$symbol]($style)"
+
+[golang]
+symbol = " "
+format = "[$symbol]($style)"
+
+[hg_branch]
+symbol = " "
+format = "[$symbol]($style)"
+
+[java]
+symbol = " "
+format = "[$symbol]($style)"
+
+[julia]
+symbol = " "
+format = "[$symbol]($style)"
+
+[nim]
+symbol = " "
+format = "[$symbol]($style)"
+
+[nix_shell]
+symbol = " "
+format = "[$symbol]($style)"
+
+[package]
+symbol = " "
+format = "[$symbol]($style)"
+
+[perl]
+symbol = " "
+format = "[$symbol]($style)"
+
+[php]
+symbol = " "
+format = "[$symbol]($style)"
+
+[python]
+symbol = " "
+format = "[$symbol]($style)"
+
+[ruby]
+symbol = " "
+format = "[$symbol]($style)"
+
+[rust]
+symbol = " "
+style = "130" # brown
+format = "[$symbol]($style)"
+
+[swift]
+symbol = "ﯣ "
+format = "[$symbol]($style)"
