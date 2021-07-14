@@ -1,4 +1,4 @@
-# macOS aliasses
+# macOS aliases
 if [[ $OSTYPE == darwin* ]]; then
   alias flush="sudo killall -HUP mDNSResponder"
 fi
@@ -13,9 +13,6 @@ alias r="source ~/.zshrc"
 # ls aliases
 alias ls="exa"
 alias la="ls -la"
-
-# cd shortcuts
-alias projects="cd ~/Documents/Projects"
 
 # docker aliases
 alias d="docker"
