@@ -48,7 +48,13 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
     brew bundle install
     ```
 
-4. Login to 1Password CLI
+    or install only required packages to apply dotfiles
+
+    ```sh
+    brew install chezmoi 1password-cli
+    ```
+
+4. Login to [1Password CLI](https://1password.com/downloads/command-line/)
 
     ```sh
     op signin my.1password.com <EMAIL>
