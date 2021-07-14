@@ -11,7 +11,7 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
 - [dotfiles](#dotfiles)
   - [Table of Contents](#table-of-contents)
   - [Configuration](#configuration)
-  - [Getting started on a new machine](#getting-started-on-a-new-machine)
+  - [Getting started](#getting-started)
 
 ## Configuration
 
@@ -28,7 +28,7 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
   - **Neovim**
     - Coming Soon
 
-## Getting started on a new machine
+## Getting started
 
 1. Clone repository
 
