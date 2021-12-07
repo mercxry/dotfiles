@@ -21,7 +21,7 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
   - **Theme:** [Tokyo Night](https://github.com/mercxry/dotfiles/blob/main/private_Documents/iTerm2-Themes/tokyo-night.itermcolors)
   - **Font:** [Jetbrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf)
 - **Terminal Multiplexer:** tmux
-    - **Theme:** Tokyo Night
+    - **Theme:** [Tokyo Night](https://github.com/mercxry/dotfiles/blob/main/dot_tmux.conf#L48-L61)
     - **Config:** [.tmux.conf](https://github.com/mercxry/dotfiles/blob/main/dot_tmux.conf)
 - **Editors**
     1. **neovim**
