@@ -14,9 +14,6 @@ DISABLE_UPDATE_PROMPT="true"
 # Uncomment the following line to change how often to auto-update (in days).
 export UPDATE_ZSH_DAYS=3
 
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
-
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # You can set one of the optional three formats:
@@ -33,12 +30,34 @@ HISTCONTROL="ignorespace"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf)
+plugins=(
+  git
+  cargo
+  command-not-found
+  colored-man-pages
+  docker
+  docker-compose
+  encode64
+  fzf
+  gh
+  gitignore
+  history
+  kubectl
+  macos
+  rustup
+  ripgrep
+  safe-paste
+  terraform
+  tmux
+  yarn
+  zoxide
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# manpath
 export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -53,6 +72,10 @@ fi
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
+export GPG_TTY=$(tty)
+
+# Change maxfiles limit
+ulimit -n 524288
 
 # zinit
 source /usr/local/opt/zinit/zinit.zsh
@@ -70,4 +93,7 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# asdf
+. /usr/local/opt/asdf/libexec/asdf.sh
 
