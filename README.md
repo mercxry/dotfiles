@@ -22,7 +22,7 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
   - **Font:** [Jetbrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf)
 - **Editors**
   - **Visual Studio Code**
-    - **Theme:** [Gruvbox Material Dark](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)
+    - **Theme:** [Tokyo Night](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)
     - **Font:** [Jetbrains Mono](https://www.jetbrains.com/lp/mono/)
   - **Neovim**
     - Coming Soon
