@@ -20,12 +20,15 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
 - **Terminal:** iTerm2
   - **Theme:** [Tokyo Night](https://github.com/mercxry/dotfiles/blob/main/private_Documents/iTerm2-Themes/tokyo-night.itermcolors)
   - **Font:** [Jetbrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf)
+- **Terminal Multiplexer:** tmux
+    - **Theme:** Tokyo Night
+    - **Config:** [.tmux.conf](https://github.com/mercxry/dotfiles/blob/main/dot_tmux.conf)
 - **Editors**
-  - **Visual Studio Code**
-    - **Theme:** [Tokyo Night](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)
-    - **Font:** [Jetbrains Mono](https://www.jetbrains.com/lp/mono/)
-  - **Neovim**
-    - Coming Soon
+    1. **neovim**
+        - Coming Soon
+    2. **Visual Studio Code**
+        - **Theme:** [Tokyo Night](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)
+        - **Font:** [Jetbrains Mono](https://www.jetbrains.com/lp/mono/)
 
 ## Getting started
 
