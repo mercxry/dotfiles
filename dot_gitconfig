@@ -1,0 +1,12 @@
+[user]
+	name = Matteo Martellini
+	email = git@mercxry.me
+	signingkey = 6BDF93955FBE746D
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
