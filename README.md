@@ -25,7 +25,8 @@ I use [chezmoi](https://github.com/twpayne/chezmoi) to manage my dotfiles which 
     - **Config:** [.tmux.conf](https://github.com/mercxry/dotfiles/blob/main/dot_tmux.conf)
 - **Editors**
     1. **neovim**
-        - Coming Soon
+        - **Theme:** [Tokyo Night](https://github.com/folke/tokyonight.nvim)
+        - **Config:** [.config/nvim/](https://github.com/mercxry/dotfiles/tree/main/dot_config/nvim)
     2. **Visual Studio Code**
         - **Theme:** [Tokyo Night](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)
         - **Font:** [Jetbrains Mono](https://www.jetbrains.com/lp/mono/)
