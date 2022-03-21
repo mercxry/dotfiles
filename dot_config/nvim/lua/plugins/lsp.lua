@@ -1,7 +1,7 @@
 local lsp_status = require("lsp-status")
-lsp_status.register_progress()
-
 local lspconfig = require("lspconfig")
+
+lsp_status.register_progress()
 
 -- Keybinds
 vim.cmd([[nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>]])
@@ -17,12 +17,14 @@ local function on_attach(client, bufnr)
 	end
 
     lsp_status.on_attach(client)
+
+    -- vim.notify("[" .. client.name .. "] " .. "Language Server Protocol started")
 end
 
--- local function on_attach_no_fmt(client, bufnr)
--- 	client.resolved_capabilities.document_formatting = false
---     lsp_status.on_attach(client)
--- end
+local function on_attach_no_fmt(client, bufnr)
+	client.resolved_capabilities.document_formatting = false
+    lsp_status.on_attach(client)
+end
 
 -- Setup capabilities
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -46,6 +48,8 @@ local servers = {
 	"elixirls",
 	"html",
 	"jsonls",
+    "csharp_ls",
+    "sumneko_lua",
 }
 
 -- User configurations for individual servers
@@ -53,6 +57,24 @@ local configs = {
 	elixirls = {
 		cmd = { "/usr/local/bin/elixir-ls/language_server.sh" },
 	},
+    sumneko_lua = {
+        settings = {
+            Lua = {
+                runtime = {
+                    version = "LuaJIT",
+                },
+                diagnostics = {
+                    globals = { "vim" }
+                },
+                workspace = {
+                    library = vim.api.nvim_get_runtime_file("", true),
+                },
+                telemetry = {
+                    enable = false,
+                }
+            }
+        }
+    }
 }
 
 -- User configurations for all servers

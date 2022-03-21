@@ -20,7 +20,7 @@ vim.cmd([[
   augroup end
 ]])
 
-return require("packer").startup(function()
+return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	use("lewis6991/impatient.nvim")
 
@@ -43,13 +43,14 @@ return require("packer").startup(function()
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
-			require("gitsigns").setup()
+			require("plugins.gitsigns")
 		end,
 	})
 	use("tpope/vim-fugitive") -- It should be illegal
 	use("tpope/vim-rhubarb") -- Github support
 	use("junegunn/gv.vim") -- Commit Browser
 	use("APZelos/blamer.nvim")
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
 	-- Search
 	use({
@@ -185,10 +186,12 @@ return require("packer").startup(function()
 	use({
 		-- Discord Presence
 		"andweeb/presence.nvim",
+        disable = true,
 		config = function()
 			require("plugins.presence")
 		end,
 	})
+    use("wakatime/vim-wakatime")
 	use({
 		"karb94/neoscroll.nvim",
 		config = function()
@@ -201,6 +204,18 @@ return require("packer").startup(function()
 			require("better_escape").setup()
 		end,
 	})
+    use({
+        "rcarriga/nvim-notify",
+        config = function()
+            require("plugins.notify")
+        end,
+    })
+    use({
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup()
+        end,
+    })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	if packer_bootstrap then

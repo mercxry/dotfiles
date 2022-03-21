@@ -46,6 +46,7 @@ vim.cmd([[set noshowmode ]])
 vim.cmd([[set showtabline=2]]) -- always show tabline
 vim.cmd([[set hidden]]) -- enable hidden buffers (change buffers without saving)
 vim.cmd([[set clipboard+=unnamedplus]]) -- use global clipboard
+vim.opt.cmdheight = 2
 
 -- Bind uppercase quit and write
 vim.cmd([[:command W w]])

@@ -1,6 +1,6 @@
 local null_ls = require("null-ls")
 
-null_ls.config({
+null_ls.setup({
 	sources = {
 		-- Python
 		null_ls.builtins.formatting.black,
@@ -18,10 +18,11 @@ null_ls.config({
 		null_ls.builtins.diagnostics.stylelint,
 
 		-- C/C++
-		null_ls.builtins.formatting.uncrustify, -- Java and C# too
+		-- null_ls.builtins.formatting.uncrustify, -- Java and C# too
 		null_ls.builtins.diagnostics.cppcheck,
 
 		-- Others
+        -- null_ls.builtins.formatting.rustfmt,
 		null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.nginx_beautifier,
 		null_ls.builtins.formatting.stylua,
@@ -33,4 +34,3 @@ null_ls.config({
 	},
 })
 
-require("lspconfig")["null-ls"].setup({})
