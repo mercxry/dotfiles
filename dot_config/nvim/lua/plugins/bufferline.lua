@@ -1,44 +1,27 @@
-vim.opt.termguicolors = true
-
-require("bufferline").setup{
+require("bufferline").setup {
     options = {
         numbers = function(opts)
             return string.format('%s.', opts.ordinal)
         end,
         diagnostics = 'nvim-lsp',
-        show_buffer_close_icons = false,
         show_close_icon = false,
     }
 }
 
--- Switch buffers
-vim.cmd([[nnoremap <silent><leader>0 :BufferLinePick<CR>]])
-vim.cmd([[nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>]])
-vim.cmd([[nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>]])
-vim.cmd([[nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>]])
-vim.cmd([[nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>]])
-vim.cmd([[nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>]])
-vim.cmd([[nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>]])
-vim.cmd([[nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>]])
-vim.cmd([[nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>]])
-vim.cmd([[nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>]])
+local opts = { noremap = true, silent = true }
 
--- Delete buffers
-function delbuf(num)
-  require('bufferline').buf_exec(num, function(buf, visible_buffers)
-      -- vim.cmd('bdelete '..buf.id)
-      require('bufdelete').bufdelete(buf.id)
-  end)
-end
+vim.api.nvim_set_keymap('n', '<TAB>', '<cmd>BufferLineCycleNext<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-TAB>', '<cmd>BufferLineCyclePrev<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-w>', '<cmd>bdelete<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-W>', '<cmd>bdelete!<CR>', opts)
 
-vim.cmd([[nnoremap <silent><leader>d0 :BufferLinePickClose<CR>]])
-vim.cmd([[nnoremap <silent><leader>d1 <Cmd>lua delbuf(1)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d2 <Cmd>lua delbuf(2)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d3 <Cmd>lua delbuf(3)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d4 <Cmd>lua delbuf(4)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d5 <Cmd>lua delbuf(5)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d6 <Cmd>lua delbuf(6)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d7 <Cmd>lua delbuf(7)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d8 <Cmd>lua delbuf(8)<CR>]])
-vim.cmd([[nnoremap <silent><leader>d9 <Cmd>lua delbuf(9)<CR>]])
-
+vim.api.nvim_set_keymap('n', '<A-0>', '<cmd>BufferLinePick<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-1>', '<cmd>BufferLineGoToBuffer 1<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-2>', '<cmd>BufferLineGoToBuffer 2<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-3>', '<cmd>BufferLineGoToBuffer 3<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-4>', '<cmd>BufferLineGoToBuffer 4<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-5>', '<cmd>BufferLineGoToBuffer 5<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-6>', '<cmd>BufferLineGoToBuffer 6<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-7>', '<cmd>BufferLineGoToBuffer 7<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-8>', '<cmd>BufferLineGoToBuffer 8<CR>', opts)
+vim.api.nvim_set_keymap('n', '<A-9>', '<cmd>BufferLineGoToBuffer 9<CR>', opts)

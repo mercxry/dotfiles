@@ -6,7 +6,7 @@ end
 
 require('lualine').setup({
   options = {
-      theme = 'tokyonight',
+      theme = vim.g.colors_name,
       globalstatus = true,
   },
   sections = {

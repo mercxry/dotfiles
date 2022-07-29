@@ -1,6 +1,4 @@
--- vim.g.actions.open_file.quit_on_open = 1
-
-require'nvim-tree'.setup{
+require 'nvim-tree'.setup {
     actions = {
         open_file = {
             quit_on_open = 1
@@ -8,5 +6,4 @@ require'nvim-tree'.setup{
     }
 }
 
-vim.cmd[[nnoremap <C-n> :NvimTreeToggle<CR>]]
-
+vim.cmd [[nnoremap <C-n> :NvimTreeToggle<CR>]]

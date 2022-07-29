@@ -21,9 +21,8 @@ require("telescope").setup({
 
 require("telescope").load_extension("fzf")
 
--- Search filename (ctrl+p)
-vim.cmd([[nnoremap <C-p> <cmd>lua require'plugins.telescope'.project_files()<CR>]])
-vim.cmd([[nnoremap <leader>/ <cmd>Telescope live_grep<CR>]])
-vim.cmd([[nnoremap <leader>fb <cmd>Telescope buffers<CR>]])
+vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>lua require('telescope.builtin').find_files()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>lua require('telescope.builtin').live_grep()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", {noremap = true, silent = true})
 
 return M
