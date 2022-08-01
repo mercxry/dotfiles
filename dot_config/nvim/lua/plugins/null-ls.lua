@@ -27,7 +27,9 @@ null_ls.setup({
         null_ls.builtins.formatting.nginx_beautifier,
         -- null_ls.builtins.formatting.terraform_fmt,
         null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
-        null_ls.builtins.diagnostics.yamllint,
+        null_ls.builtins.diagnostics.yamllint.with({
+            extra_args = { "-d", os.getenv("HOME") .. "/.config/nvim/.yamllint.yaml" }
+        }),
         null_ls.builtins.formatting.golines, -- Includes gofmt and goimports
         null_ls.builtins.formatting.mix, -- Elixir
     },
