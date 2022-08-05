@@ -32,5 +32,6 @@ null_ls.setup({
         }),
         null_ls.builtins.formatting.golines, -- Includes gofmt and goimports
         null_ls.builtins.formatting.mix, -- Elixir
+        null_ls.builtins.diagnostics.vale,
     },
 })
