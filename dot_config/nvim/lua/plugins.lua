@@ -77,7 +77,24 @@ return require("packer").startup(function(use)
     use("tpope/vim-rhubarb") -- Github support
     use("junegunn/gv.vim") -- Commit Browser
     use("APZelos/blamer.nvim")
-    use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+    use({
+        "sindrets/diffview.nvim",
+        requires = "nvim-lua/plenary.nvim"
+    })
+    use({
+        "akinsho/git-conflict.nvim",
+        tag = "*",
+        config = function()
+            require("plugins.git-conflict")
+        end
+    })
+    use {
+        "ruifm/gitlinker.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("plugins.gitlinker")
+        end
+    }
 
     ---------------
     -- Telescope --
@@ -399,13 +416,6 @@ return require("packer").startup(function(use)
         config = function()
             require("plugins.neoclip")
         end,
-    }
-    use {
-        "ruifm/gitlinker.nvim",
-        requires = "nvim-lua/plenary.nvim",
-        config = function()
-            require("gitlinker").setup()
-        end
     }
     use({
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
