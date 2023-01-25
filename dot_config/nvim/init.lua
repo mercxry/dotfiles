@@ -10,14 +10,7 @@
 -- https://twitter.com/mttni
 -- https://github.com/mercxry
 
-require 'impatient'
-
---
-require 'plugins'
-
---
 require 'globals'
 require 'mappings'
 
---
-require 'theme'.kanagawa()
+require 'load_lazy'

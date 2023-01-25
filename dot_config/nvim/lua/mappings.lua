@@ -23,3 +23,6 @@ vim.cmd [[noremap <leader>v :vsp<CR><C-w><C-w>]]
 -- puml
 vim.api.nvim_create_user_command('PumlRenderSVG', ':!plantuml %:p -tsvg', { nargs = 0 })
 vim.api.nvim_set_keymap('n', '<leader>psvg', ':PumlRenderSVG<CR>', { silent = true })
+
+-- open diagnostics
+vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd> lua vim.diagnostic.open_float() <CR>', { silent = true })
