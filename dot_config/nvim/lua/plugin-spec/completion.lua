@@ -1,5 +1,4 @@
 return {
-    { "rafamadriz/friendly-snippets" },
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -16,14 +15,23 @@ return {
             "davidsierradz/cmp-conventionalcommits",
             "saadparwaiz1/cmp_luasnip",
         },
+        event = "InsertEnter",
         config = function()
             require("plugin-config.cmp")
         end,
     },
     {
         "L3MON4D3/LuaSnip",
-        config = function()
-            require("luasnip.loaders.from_vscode").lazy_load()
-        end
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            config = function()
+                require("luasnip.loaders.from_vscode").lazy_load()
+            end
+        },
+        event = "InsertEnter",
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        }
     },
 }

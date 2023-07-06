@@ -12,14 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Automatically PackerSync when this file is changed
---[[ local cfgGrp = api.nvim_create_augroup("PackerUserConfig", { clear = true }) ]]
---[[ api.nvim_create_autocmd("BufWritePost", { ]]
---[[     pattern = "plugins.lua", ]]
---[[     command = "source <afile> | PackerSync", ]]
---[[     group = cfgGrp, ]]
---[[ }) ]]
-
 require("lazy").setup("plugin-spec", {
     install = {
         colorscheme = { "kanagawa" }
@@ -37,5 +29,8 @@ require("lazy").setup("plugin-spec", {
                 "zipPlugin",
             },
         }
-    }
+    },
+    change_detection = {
+        notify = false,
+    },
 })

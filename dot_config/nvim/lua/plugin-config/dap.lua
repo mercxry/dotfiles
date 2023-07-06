@@ -1,39 +1,37 @@
-local dap, dapui = require("dap"), require("dapui")
-require('telescope').load_extension('dap')
+local dap = require("dap")
 
--- Open and close dap ui when we start/stop debugging
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-end
+-- Signs
+vim.fn.sign_define("DapStopped", { text="󰁕 ", texthl="DiagnosticWarn", linehl="DapStoppedLine", numhl="DapStoppedLine" })
+vim.fn.sign_define("DapBreakpoint", { text=" ", texthl="DiagnosticInfo", linehl="", numhl="" })
+vim.fn.sign_define("DapBreakpointCondition", { text=" ", texthl="DiagnosticInfo", linehl="", numhl="" })
+vim.fn.sign_define("DapBreakpointRejected", { text=" ", texthl="DiagnosticError", linehl="", numhl="" })
+vim.fn.sign_define("DapLogPoint", { text=".>", texthl="DiagnosticInfo", linehl="", numhl="" })
 
--- Keymaps
-vim.keymap.set("n", "<F5>", ":lua require'dap'.continue()<CR>")
-vim.keymap.set("n", "<F10>", ":lua require'dap'.step_over()<CR>")
-vim.keymap.set("n", "<F11>", ":lua require'dap'.step_into()<CR>")
-vim.keymap.set("n", "<S-F11>", ":lua require'dap'.step_out()<CR>")
-vim.keymap.set("n", "<F9>", ":lua require'dap'.toggle_breakpoint()<CR>")
-vim.keymap.set("n", "<S-F9>", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-vim.keymap.set("n", "<leader>dlp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
-vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>")
-vim.keymap.set("n", "<leader>dt", ":lua require'dap-go'.debug_test()<CR>")
+-- Adapters config
+local function get_codelldb()
+    local mason_registry = require "mason-registry"
+    local codelldb = mason_registry.get_package "codelldb"
+    local extension_path = codelldb:get_install_path() .. "/extension/"
+    local codelldb_path = extension_path .. "adapter/codelldb"
+    local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+    return codelldb_path, liblldb_path
+end
+local codelldb_path, _ = get_codelldb()
 
--- Language configuration
-dap.adapters.lldb = {
-    type = 'executable',
-    command = '/opt/homebrew/opt/llvm/bin/lldb-vscode',
-    name = 'lldb'
+dap.adapters.codelldb = {
+    type = 'server',
+    port = "${port}",
+    executable = {
+        command = codelldb_path,
+        args = { "--port", "${port}" },
+    },
 }
 
+-- Language configuration
 dap.configurations.cpp = {
     {
-        name = 'Launch',
-        type = 'lldb',
+        name = 'Launch file',
+        type = 'codelldb',
         request = 'launch',
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -54,51 +52,25 @@ dap.configurations.cpp = {
         -- But you should be aware of the implications:
         -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
         -- runInTerminal = false,
-    },
-    {
-        -- If you get an "Operation not permitted" error using this, try disabling YAMA:
-        --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-        name = "Attach to process",
-        type = 'cpp', -- Adjust this to match your adapter name (`dap.adapters.<name>`)
-        request = 'attach',
-        pid = require('dap.utils').pick_process,
-        args = {},
     },
 }
 
 dap.configurations.c = dap.configurations.cpp
+
 dap.configurations.rust = {
     {
-        name = 'Launch',
-        type = 'lldb',
+        name = 'Launch debug',
+        type = 'codelldb',
         request = 'launch',
         program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            local metadata_json = vim.fn.system "cargo metadata --format-version 1 --no-deps"
+            local metadata = vim.fn.json_decode(metadata_json)
+            local target_name = metadata.packages[1].targets[1].name
+            local target_dir = metadata.target_directory
+            return target_dir .. "/debug/" .. target_name
         end,
         cwd = '${workspaceFolder}',
         stopOnEntry = false,
-        args = {},
-
-        -- 💀
-        -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-        --
-        --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-        --
-        -- Otherwise you might get the following error:
-        --
-        --    Error on launch: Failed to attach to the target process
-        --
-        -- But you should be aware of the implications:
-        -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-        -- runInTerminal = false,
-    },
-    {
-        -- If you get an "Operation not permitted" error using this, try disabling YAMA:
-        --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-        name = "Attach to process",
-        type = 'rust', -- Adjust this to match your adapter name (`dap.adapters.<name>`)
-        request = 'attach',
-        pid = require('dap.utils').pick_process,
-        args = {},
+        sourceLanguages = { "rust" },
     },
 }

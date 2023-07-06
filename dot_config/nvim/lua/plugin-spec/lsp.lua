@@ -15,14 +15,35 @@ return {
         },
         config = function()
             require("mason").setup()
-        end
+            require("mason-lspconfig").setup {
+                ensure_installed = {
+                    "rust_analyzer",
+                    "tsserver",
+                },
+                automatic_installation = true,
+            }
+        end,
+        keys = {
+            {
+                "<leader>vm",
+                function()
+                    vim.cmd [[Mason]]
+                end
+            }
+        }
     },
     {
         "folke/trouble.nvim",
         dependencies = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("trouble").setup({})
-        end
+        opts = {},
+        keys = {
+            {
+                "<leader>tr",
+                function()
+                    vim.cmd [[TroubleToggle]]
+                end
+            }
+        }
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
@@ -61,7 +82,7 @@ return {
                         extra_args = { "-d", os.getenv("HOME") .. "/.config/nvim/.yamllint.yaml" }
                     }),
                     null_ls.builtins.formatting.golines, -- Includes gofmt and goimports
-                    null_ls.builtins.formatting.mix, -- Elixir
+                    null_ls.builtins.formatting.mix,     -- Elixir
                     --[[ null_ls.builtins.diagnostics.vale, ]]
                 },
             })
@@ -69,6 +90,7 @@ return {
     },
     {
         "j-hui/fidget.nvim",
+        tag = "legacy",
         config = function()
             require("fidget").setup({})
         end

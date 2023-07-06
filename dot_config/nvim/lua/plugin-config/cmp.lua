@@ -3,6 +3,7 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 
 local cmp = require 'cmp'
 local lspkind = require 'lspkind'
+local luasnip = require 'luasnip'
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
 cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
@@ -19,16 +20,31 @@ cmp.setup({
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<Up>'] = cmp.mapping.select_prev_item(),
         ['<Down>'] = cmp.mapping.select_next_item(),
-        -- Add tab support
-        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
+            select = false,
         })
     },
     formatting = {
@@ -48,6 +64,20 @@ cmp.setup({
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp_document_symbol' },
         { name = 'luasnip' },
+    },
+
+    sorting = {
+        comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.kind,
+        },
+    },
+
+    experimental = {
+        native_menu = false
     },
 })
 

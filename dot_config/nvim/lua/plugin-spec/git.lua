@@ -1,24 +1,43 @@
 return {
     { "tpope/vim-fugitive" }, -- It should be illegal
-    { "tpope/vim-rhubarb" }, -- Github support
-    { "junegunn/gv.vim" }, -- Commit Browser
+    { "tpope/vim-rhubarb" },  -- Github support
+    { "junegunn/gv.vim" },    -- Commit Browser
     { "APZelos/blamer.nvim" },
     {
         "lewis6991/gitsigns.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            local gitsigns = require('gitsigns')
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {
+            attach_to_untracked = false,
+            current_line_blame = true,
+            current_line_blame_formatter_opts = {
+                relative_time = true
+            },
+            current_line_blame_opts = {
+                delay = 400
+            },
+            on_attach = function(buffer)
+                local gs = package.loaded.gitsigns
 
-            gitsigns.setup {
-                current_line_blame = true,
-                current_line_blame_formatter_opts = {
-                    relative_time = true
-                },
-                current_line_blame_opts = {
-                    delay = 400
-                },
-            }
-        end,
+                local function map(mode, l, r, desc)
+                    vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+                end
+
+                --[[ map("n", "]h", gs.next_hunk, "Next Hunk") ]]
+                --[[ map("n", "[h", gs.prev_hunk, "Prev Hunk") ]]
+                --[[ map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk") ]]
+                map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+                --[[ map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer") ]]
+                --[[ map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk") ]]
+                map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+                map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
+                map("n", "<leader>ghpi", gs.preview_hunk_inline, "Preview Hunk")
+                --[[ map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line") ]]
+                map("n", "<leader>ghd", gs.diffthis, "Diff This")
+                map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+                --[[ map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk") ]]
+            end,
+        },
     },
     {
         "sindrets/diffview.nvim",
@@ -36,7 +55,21 @@ return {
 
             vim.api.nvim_set_keymap("n", "<leader>gdm", ":DiffviewOpen origin/main...HEAD<CR>", { silent = true })
             vim.api.nvim_set_keymap("n", "<leader>gd", ":DiffviewToggle<CR>", { silent = true })
-        end
+        end,
+        keys = {
+            {
+                "<leader>gdm",
+                function()
+                    vim.cmd [[DiffviewOpen origin/main...HEAD]]
+                end
+            },
+            {
+                "<leader>gd",
+                function()
+                    vim.cmd [[DiffviewToggle]]
+                end
+            },
+        }
     },
     {
         "akinsho/git-conflict.nvim",
@@ -75,14 +108,38 @@ return {
             'nvim-telescope/telescope.nvim',
             'kyazdani42/nvim-web-devicons',
         },
-        config = function()
-            require "octo".setup()
-
-            vim.api.nvim_set_keymap("n", "<leader>gprl", ":Octo pr list<CR>", { silent = true })
-            vim.api.nvim_set_keymap("n", "<leader>grs", ":Octo review start<CR>", { silent = true })
-            vim.api.nvim_set_keymap("n", "<leader>grr", ":Octo review resume<CR>", { silent = true })
-            vim.api.nvim_set_keymap("n", "<leader>grc", ":Octo review close<CR>", { silent = true })
-            vim.api.nvim_set_keymap("n", "<leader>grsu", ":Octo review submit<CR>", { silent = true })
-        end
+        keys = {
+            {
+                "<leader>gprl",
+                function()
+                    vim.cmd [[Octo pr list]]
+                end
+            },
+            {
+                "<leader>grs",
+                function()
+                    vim.cmd [[Octo review start]]
+                end
+            },
+            {
+                "<leader>grr",
+                function()
+                    vim.cmd [[Octo review resume]]
+                end
+            },
+            {
+                "<leader>grc",
+                function()
+                    vim.cmd [[Octo review close]]
+                end
+            },
+            {
+                "<leader>grsu",
+                function()
+                    vim.cmd [[Octo review submit]]
+                end
+            },
+        },
+        config = true
     }
 }

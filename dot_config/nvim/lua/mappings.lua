@@ -26,3 +26,6 @@ vim.api.nvim_set_keymap('n', '<leader>psvg', ':PumlRenderSVG<CR>', { silent = tr
 
 -- open diagnostics
 vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd> lua vim.diagnostic.open_float() <CR>', { silent = true })
+
+-- open lazy
+vim.api.nvim_set_keymap('n', '<leader>l', ':Lazy<CR>', { silent = true })

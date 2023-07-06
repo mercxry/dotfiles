@@ -1,5 +1,6 @@
 -- local lsp_status = require("lsp-status")
 local lspconfig = require("lspconfig")
+local navic = require("nvim-navic")
 
 -- lsp_status.register_progress()
 
@@ -12,8 +13,10 @@ vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', 
 vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>ha', '<cmd>lua vim.lsp.buf.hover_action()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
 -- Open diagnostic when on line
 --[[ vim.diagnostic.config({ virtual_text = false }) ]]
@@ -27,8 +30,12 @@ vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', o
 --[[         }) ]]
 --[[     end ]]
 --[[ }) ]]
-
 local function on_attach(client, bufnr)
+    --  Shwo navication
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
+
     if client.server_capabilities.documentHighlightProvider then
         vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
     end
@@ -39,6 +46,11 @@ local function on_attach(client, bufnr)
 end
 
 local function on_attach_no_fmt(client, bufnr)
+    --  Shwo navication
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
+
     client.server_capabilities.document_formatting = false
 
     -- lsp_status.on_attach(client)
@@ -53,7 +65,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- Debug with print(vim.inspect(vim.lsp.get_active_clients()))
 local servers = {
     "pyright",
-    "tsserver",
     "dockerls",
     "graphql",
     "pyright",
@@ -67,11 +78,13 @@ local servers = {
     "html",
     "jsonls",
     "csharp_ls",
-    "sumneko_lua",
+    "lua_ls",
     "terraformls",
     "prismals",
     "astro",
+    "volar",
     "marksman",
+    "emmet_ls",
 }
 
 -- User configurations for individual servers
@@ -79,7 +92,7 @@ local configs = {
     elixirls = {
         cmd = { "/usr/local/bin/elixir-ls/language_server.sh" },
     },
-    sumneko_lua = {
+    lua_ls = {
         settings = {
             Lua = {
                 format = {
@@ -103,7 +116,12 @@ local configs = {
                 }
             }
         },
-    }
+    },
+    --[[ astro = { ]]
+    --[[     init_options = { ]]
+    --[[         typescript = vim.fn.stdpath('data') .. "/mason/bin/typescript-language-server" ]]
+    --[[     } ]]
+    --[[ } ]]
 }
 
 -- User configurations for all servers
@@ -120,7 +138,7 @@ for _, lsp in ipairs(servers) do
 end
 
 -- Change diagnostic signs.
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = "󰅚 ", Warn = " ", Hint = "󰌶 ", Info = " " }
 
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type

@@ -1,6 +1,5 @@
 return {
     { "christoomey/vim-tmux-navigator" }, -- Tmux navigator integration
-    { "JoosepAlviste/nvim-ts-context-commentstring" },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
@@ -13,7 +12,6 @@ return {
             vim.g.neo_tree_remove_legacy_commands = 1
 
             require("neo-tree").setup({
-                -- close_if_last_window = true,
                 window = {
                     position = "left",
                 },
@@ -101,6 +99,8 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        event = { "BufReadPost", "BufNewFile" },
         config = function()
             require 'nvim-treesitter.configs'.setup {
                 ensure_installed = "all",
@@ -122,13 +122,10 @@ return {
                 }
             }
         end,
-        build = ":TSUpdate",
     },
     {
         "windwp/nvim-autopairs",
-        config = function()
-            require("nvim-autopairs").setup({})
-        end,
+        config = true,
     },
     {
         "numToStr/Comment.nvim",
@@ -165,9 +162,7 @@ return {
 
     {
         "kylechui/nvim-surround",
-        config = function()
-            require("nvim-surround").setup({})
-        end
+        config = true
     },
     {
         "nvim-lualine/lualine.nvim",
@@ -179,6 +174,7 @@ return {
                 return string.format("%d:%d | %d", r, c, vim.fn.line('$'))
             end
 
+            local navic = require("nvim-navic")
             require('lualine').setup({
                 options = {
                     theme = vim.g.colors_name,
@@ -186,56 +182,127 @@ return {
                 },
                 sections = {
                     lualine_c = {
-                        { 'filename', file_status = false, path = 1, icons_enabled = true },
+                        { 'filename', file_status = false,    path = 1,        icons_enabled = true },
+                        { 'navic',    color_correction = nil, navic_opts = nil },
                     },
                     lualine_z = { improved_location },
                 }
             })
-
         end,
     },
     {
         "akinsho/bufferline.nvim",
-        dependencies = { "kyazdani42/nvim-web-devicons", lazy = true },
-        config = function()
-            require("bufferline").setup {
-                options = {
-                    numbers = function(opts)
-                        return string.format('%s.', opts.ordinal)
-                    end,
-                    diagnostics = 'nvim-lsp',
-                    show_close_icon = false,
-                }
+        dependencies = { "kyazdani42/nvim-web-devicons", "famiu/bufdelete.nvim" },
+        event = {
+            "BufAdd",
+            "BufRead",
+        },
+        opts = {
+            options = {
+                numbers = function(opts)
+                    return string.format('%s.', opts.ordinal)
+                end,
+                diagnostics = 'nvim-lsp',
+                show_close_icon = false,
             }
-
-            local opts = { noremap = true, silent = true }
-
-            vim.api.nvim_set_keymap('n', '<TAB>', '<cmd>BufferLineCycleNext<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-TAB>', '<cmd>BufferLineCyclePrev<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-w>', '<cmd>bdelete<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-W>', '<cmd>bdelete!<CR>', opts)
-
-            vim.api.nvim_set_keymap('n', '<A-0>', '<cmd>BufferLinePick<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-1>', '<cmd>BufferLineGoToBuffer 1<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-2>', '<cmd>BufferLineGoToBuffer 2<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-3>', '<cmd>BufferLineGoToBuffer 3<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-4>', '<cmd>BufferLineGoToBuffer 4<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-5>', '<cmd>BufferLineGoToBuffer 5<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-6>', '<cmd>BufferLineGoToBuffer 6<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-7>', '<cmd>BufferLineGoToBuffer 7<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-8>', '<cmd>BufferLineGoToBuffer 8<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<A-9>', '<cmd>BufferLineGoToBuffer 9<CR>', opts)
-        end,
-    },
-    {
-        "famiu/bufdelete.nvim",
-        dependencies = "bufferline.nvim",
+        },
+        keys = {
+            {
+                "<TAB>",
+                function()
+                    vim.cmd [[BufferLineCycleNext]]
+                end
+            },
+            {
+                "<A-TAB>",
+                function()
+                    vim.cmd [[BufferLineCyclePrev]]
+                end
+            },
+            {
+                "<A-w>",
+                function()
+                    vim.cmd [[bdelete]]
+                end
+            },
+            {
+                "<A-W>",
+                function()
+                    vim.cmd [[bdelete!]]
+                end
+            },
+            {
+                "<A-0>",
+                function()
+                    vim.cmd [[BufferLinePick]]
+                end
+            },
+            {
+                "<A-1>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 1]]
+                end
+            },
+            {
+                "<A-2>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 2]]
+                end
+            },
+            {
+                "<A-3>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 3]]
+                end
+            },
+            {
+                "<A-4>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 4]]
+                end
+            },
+            {
+                "<A-5>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 5]]
+                end
+            },
+            {
+                "<A-6>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 6]]
+                end
+            },
+            {
+                "<A-7>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 7]]
+                end
+            },
+            {
+                "<A-8>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 8]]
+                end
+            },
+            {
+                "<A-9>",
+                function()
+                    vim.cmd [[BufferLineGoToBuffer 9]]
+                end
+            },
+        },
     },
     {
         "mbbill/undotree",
-        config = function()
-            vim.api.nvim_set_keymap('n', '<leader>u', '<cmd>UndotreeToggle<CR>', { silent = true })
-        end
+        keys = {
+            {
+                "<leader>u",
+                function()
+                    vim.cmd [[UndotreeToggle]]
+                end
+            }
+        },
     },
     {
         "norcalli/nvim-colorizer.lua",
@@ -245,6 +312,7 @@ return {
     },
     {
         "monaqa/dial.nvim",
+        lazy = true,
         config = function()
             local augend = require("dial.augend")
             require("dial.config").augends:register_group {
@@ -268,7 +336,8 @@ return {
             vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
         end
     },
-    { "anuvyklack/fold-preview.nvim",
+    {
+        "anuvyklack/fold-preview.nvim",
         dependencies = "anuvyklack/keymap-amend.nvim",
         config = function()
             require("fold-preview").setup()
@@ -279,12 +348,15 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim"
         },
-        config = function()
-            require('spectre').setup()
-
-            local opts = { noremap = true, silent = true }
-            vim.api.nvim_set_keymap('n', '<leader>S', '<cmd>lua require(\'spectre\').open()<CR>', opts)
-        end
+        keys = {
+            {
+                "<leader>S",
+                function()
+                    require("spectre").open()
+                end
+            },
+        },
+        config = true
     },
     {
         "AckslD/nvim-neoclip.lua",
@@ -292,19 +364,23 @@ return {
             { "kkharji/sqlite.lua" },
             { "nvim-telescope/telescope.nvim" },
         },
-        config = function()
-            require('neoclip').setup(
-                {
-                    enable_persistent_history = true,
-                }
-            )
-
-            vim.api.nvim_set_keymap("n", "<leader>pb", "<cmd>lua require('telescope').extensions.neoclip.default()<CR>",
-                { noremap = true, silent = true })
-            vim.api.nvim_set_keymap("n", "<leader>mb",
-                "<cmd>lua require('telescope').extensions.macroscope.default()<CR>",
-                { noremap = true, silent = true })
-        end,
+        opts = {
+            enable_persistent_history = true,
+        },
+        keys = {
+            {
+                "<leader>pb",
+                function()
+                    require('telescope').extensions.neoclip.default()
+                end
+            },
+            {
+                "<leader>mb",
+                function()
+                    require('telescope').extensions.macroscope.default()
+                end
+            },
+        }
     },
     {
         "jinh0/eyeliner.nvim",
@@ -314,12 +390,64 @@ return {
             }
         end
     },
-    { "johmsalas/text-case.nvim",
+    {
+        "johmsalas/text-case.nvim",
+        opts = {},
         config = function()
-            require('textcase').setup({})
             require('telescope').load_extension('textcase')
             vim.api.nvim_set_keymap('n', 'ga.', '<cmd>TextCaseOpenTelescopeQuickChange<CR>', { desc = "Telescope" })
             vim.api.nvim_set_keymap('v', 'ga.', "<cmd>TextCaseOpenTelescopeQuickChange<CR>", { desc = "Telescope" })
+        end,
+        keys = {
+            {  "ga.", "<cmd>TextCaseOpenTelescopeQuickChange<CR>", {"n", "v"}, desc = "Change casing of word" },
+        },
+    },
+    {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+            require("statuscol").setup()
         end
     },
+    {
+        "petertriho/nvim-scrollbar",
+        cond = false,
+        dependencies = {
+            "lewis6991/gitsigns.nvim",
+            "kevinhwang91/nvim-hlslens",
+        },
+        config = function()
+            require("scrollbar").setup()
+            require("scrollbar.handlers.gitsigns").setup()
+            require("scrollbar.handlers.search").setup()
+        end
+    },
+    {
+        "SmiteshP/nvim-navic",
+        dependencies = {
+            "neovim/nvim-lspconfig"
+        },
+    },
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            {
+                "s",
+                mode = { "n", "x", "o" },
+                function()
+                    require("flash").jump()
+                end,
+                desc = "Flash",
+            },
+            {
+                "S",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "Flash Treesitter",
+            },
+        },
+    }
 }
