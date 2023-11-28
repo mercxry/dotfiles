@@ -18,13 +18,8 @@ return {
         dependencies = "neovim/nvim-lspconfig",
         ft = "rust",
         config = function()
-            --[[ local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-1.6.7/' ]]
-            --[[ local codelldb_path = extension_path .. 'adapter/codelldb' ]]
-            --[[ local liblldb_path = extension_path .. 'lldb/lib/liblldb' ]]
-            --[[ local this_os = vim.loop.os_uname().sysname; ]]
-            --[[]]
-            --[[ -- The liblldb extension is .so for linux and .dylib for macOS ]]
-            --[[ liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib") ]]
+            local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
             local rt = require("rust-tools")
             local mason_registry = require("mason-registry")
 
@@ -35,7 +30,7 @@ return {
 
             local navic = require("nvim-navic")
             local function on_attach(client, bufnr)
-                --  Shwo navication
+                --  Show navication
                 if client.server_capabilities.documentSymbolProvider then
                     navic.attach(client, bufnr)
                 end
@@ -51,6 +46,7 @@ return {
             rt.setup({
                 server = {
                     on_attach = on_attach,
+                    capabilities = capabilities,
                     settings = {
                         ["rust-analyzer"] = {
                             checkOnSave = {
@@ -94,10 +90,12 @@ return {
     -- Typescript
     {
         "pmizio/typescript-tools.nvim",
-        ft = "typescript",
+        cond = false,
+        --[[ ft = "typescript", ]]
         dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
         opts = {
             settings = {
+                --[[ tsserver_path = vim.fn.stdpath('data') .. "/mason/bin/typescript-language-server", ]]
                 tsserver_plugins = {
                     "@styled/typescript-styled-plugin"
                 },
@@ -106,11 +104,6 @@ return {
     },
     {
         "windwp/nvim-ts-autotag",
-        ft = "typescript",
-        config = true,
-    },
-    {
-        "JoosepAlviste/nvim-ts-context-commentstring",
         ft = "typescript",
         config = true,
     },

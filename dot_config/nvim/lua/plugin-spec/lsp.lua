@@ -14,12 +14,10 @@ return {
             "neovim/nvim-lspconfig",
         },
         config = function()
+            local servers = require("plugin-config.lsp")
             require("mason").setup()
             require("mason-lspconfig").setup {
-                ensure_installed = {
-                    "rust_analyzer",
-                    "tsserver",
-                },
+                ensure_installed = servers,
                 automatic_installation = true,
             }
         end,
@@ -95,5 +93,22 @@ return {
             require("fidget").setup({})
         end
     },
-
+    --[[ { ]]
+    --[[     "aznhe21/actions-preview.nvim", ]]
+    --[[     opts = { ]]
+    --[[         diff = { ]]
+    --[[             indent_heuristic = true, ]]
+    --[[         } ]]
+    --[[     }, ]]
+    --[[     keys = { ]]
+    --[[         { ]]
+    --[[             "ca", ]]
+    --[[             mode = { "v", "n" }, ]]
+    --[[             function() ]]
+    --[[                 require("actions-preview").code_actions() ]]
+    --[[             end, ]]
+    --[[             desc = "Code Actions", ]]
+    --[[         }, ]]
+    --[[     }, ]]
+    --[[ } ]]
 }

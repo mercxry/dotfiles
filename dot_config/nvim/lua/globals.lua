@@ -4,8 +4,10 @@ vim.opt.relativenumber = true
 vim.opt.numberwidth = 2
 
 -- Set relative numbers in normal mode but not in insert mode
-vim.cmd([[autocmd InsertEnter * :set norelativenumber]])
-vim.cmd([[autocmd InsertLeave * :set relativenumber]])
+if not vim.g.vscode then
+    vim.cmd([[autocmd InsertEnter * :set norelativenumber]])
+    vim.cmd([[autocmd InsertLeave * :set relativenumber]])
+end
 
 -- Indents
 vim.opt.expandtab = true -- use spaces instead of tabs
@@ -67,10 +69,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- ]])
 
 -- Bind uppercase quit and write
-vim.cmd([[:command W w]])
-vim.cmd([[:command Q q]])
-vim.cmd([[:command WQ wq]])
-vim.cmd([[:command Wq wq]])
+if not vim.g.vscode then
+    vim.cmd([[:command W w]])
+        -- VSCode extension
+    vim.cmd([[:command Q q]])
+    vim.cmd([[:command WQ wq]])
+    vim.cmd([[:command Wq wq]])
+end
 
 -- Close quickfix menu after selecting choice
 vim.api.nvim_create_autocmd(

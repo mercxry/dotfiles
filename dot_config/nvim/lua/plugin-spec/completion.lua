@@ -15,7 +15,11 @@ return {
             "davidsierradz/cmp-conventionalcommits",
             "saadparwaiz1/cmp_luasnip",
         },
-        event = "InsertEnter",
+        --[[ Don't enable InsertEnter event, because it fucks with completion ]]
+        --[[ This happens when you open a file and the lsp loads before you have a chance to load ]]
+        --[[ this plugin by pressing "i" ]]
+        --[[ TODO: Find another way to lazy load? or not, this plugin is needed 99% of the time ]]
+        --[[ event = "InsertEnter", ]]
         config = function()
             require("plugin-config.cmp")
         end,

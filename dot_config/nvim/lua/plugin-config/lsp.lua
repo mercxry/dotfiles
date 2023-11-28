@@ -31,7 +31,7 @@ vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<
 --[[     end ]]
 --[[ }) ]]
 local function on_attach(client, bufnr)
-    --  Shwo navication
+    --  Show navication
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
     end
@@ -46,7 +46,7 @@ local function on_attach(client, bufnr)
 end
 
 local function on_attach_no_fmt(client, bufnr)
-    --  Shwo navication
+    --  Show navication
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
     end
@@ -64,33 +64,45 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- Language servers
 -- Debug with print(vim.inspect(vim.lsp.get_active_clients()))
 local servers = {
-    "pyright",
+    "astro",
+    "csharp_ls",
+    "dhall_lsp_server",
+    "docker_compose_language_service",
     "dockerls",
-    "graphql",
-    "pyright",
-    "svelte",
-    "texlab",
-    "tflint",
-    "yamlls",
+    "elixirls",
+    "emmet_ls",
     "eslint",
     "gopls",
-    "elixirls",
+    "graphql",
+    "helm_ls",
+    "hls",
     "html",
     "jsonls",
-    "csharp_ls",
+    "jsonnet_ls",
     "lua_ls",
-    "terraformls",
-    "prismals",
-    "astro",
-    "volar",
     "marksman",
-    "emmet_ls",
+    "mdx_analyzer",
+    "ocamllsp",
+    "postgres_lsp",
+    "prismals",
+    "pyright",
+    "svelte",
+    "tailwindcss",
+    "terraformls",
+    "texlab",
+    "tflint",
+    "tsserver",
+    "volar",
+    "yamlls",
 }
 
 -- User configurations for individual servers
 local configs = {
     elixirls = {
         cmd = { "/usr/local/bin/elixir-ls/language_server.sh" },
+    },
+    hls = {
+        filetypes = { 'haskell', 'lhaskell', 'cabal' },
     },
     lua_ls = {
         settings = {
@@ -159,3 +171,5 @@ vim.diagnostic.config({
 --     indicator_hint = '?',
 --     indicator_ok = 'Ok',
 -- })
+
+return servers

@@ -116,12 +116,19 @@ return {
                 -- indent = {
                 --   enable = true
                 -- }
-                context_commentstring = {
-                    enable = true,
-                    enable_autocmd = false,
-                }
             }
         end,
+    },
+    {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        config = function()
+            -- Skip backwards compatibility routines and speed up loading.
+            vim.g.skip_ts_context_commentstring_module = true
+
+            require('ts_context_commentstring').setup {
+                enable_autocmd = false,
+            }
+        end
     },
     {
         "windwp/nvim-autopairs",
@@ -174,7 +181,7 @@ return {
                 return string.format("%d:%d | %d", r, c, vim.fn.line('$'))
             end
 
-            local navic = require("nvim-navic")
+            --[[ local navic = require("nvim-navic") ]]
             require('lualine').setup({
                 options = {
                     theme = vim.g.colors_name,
@@ -399,7 +406,7 @@ return {
             vim.api.nvim_set_keymap('v', 'ga.', "<cmd>TextCaseOpenTelescopeQuickChange<CR>", { desc = "Telescope" })
         end,
         keys = {
-            {  "ga.", "<cmd>TextCaseOpenTelescopeQuickChange<CR>", {"n", "v"}, desc = "Change casing of word" },
+            { "ga.", "<cmd>TextCaseOpenTelescopeQuickChange<CR>", { "n", "v" }, desc = "Change casing of word" },
         },
     },
     {
@@ -449,5 +456,11 @@ return {
                 desc = "Flash Treesitter",
             },
         },
+    },
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     }
 }
