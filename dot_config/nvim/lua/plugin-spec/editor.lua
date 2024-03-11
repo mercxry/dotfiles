@@ -100,7 +100,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        event = { "BufReadPost", "BufNewFile" },
+        --[[ event = { "BufReadPost", "BufNewFile" }, ]]
         config = function()
             require 'nvim-treesitter.configs'.setup {
                 ensure_installed = "all",
@@ -462,5 +462,9 @@ return {
         opts = {},
         -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+    {
+        'wakatime/vim-wakatime',
+        lazy = false
     }
 }

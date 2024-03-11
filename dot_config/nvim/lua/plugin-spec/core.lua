@@ -50,6 +50,7 @@ return {
                     tf = "terraform",
                     astro = "astro",
                     sql = "pgsql",
+                    gd = "gdscript",
                 },
                 complex = {
                     [".*%.conf%.d/.*%.conf"] = "nginx",

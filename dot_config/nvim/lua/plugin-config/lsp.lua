@@ -83,7 +83,6 @@ local servers = {
     "marksman",
     "mdx_analyzer",
     "ocamllsp",
-    "postgres_lsp",
     "prismals",
     "pyright",
     "svelte",
