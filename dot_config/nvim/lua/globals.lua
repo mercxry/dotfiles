@@ -48,6 +48,21 @@ vim.opt.clipboard = "unnamedplus" -- use global clipboard
 vim.opt.cmdheight = 1
 vim.opt.mouse = "a"
 
+vim.filetype.add({
+    extension = {
+        tf = "terraform",
+        tfvars = "terraform-vars",
+        astro = "astro",
+        sql = "pgsql",
+        gd = "gdscript",
+    },
+    pattern = {
+        [".*%.conf%.d/.*%.conf"] = "nginx",
+        [".*justfile.*"] = "just",
+    }
+})
+
+
 -- Don't continue comments when pressing "o" to create a new line
 local autoGroup = vim.api.nvim_create_augroup("autoGroup", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -71,15 +86,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Bind uppercase quit and write
 if not vim.g.vscode then
     vim.cmd([[:command W w]])
-        -- VSCode extension
+    -- VSCode extension
     vim.cmd([[:command Q q]])
     vim.cmd([[:command WQ wq]])
     vim.cmd([[:command Wq wq]])
 end
 
 -- Close quickfix menu after selecting choice
-vim.api.nvim_create_autocmd(
-    "FileType", {
-        pattern = { "qf" },
-        command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]]
-    })
+--[[ vim.api.nvim_create_autocmd( ]]
+--[[     "FileType", { ]]
+--[[         pattern = { "qf" }, ]]
+--[[         command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]]
+--[[     }) ]]

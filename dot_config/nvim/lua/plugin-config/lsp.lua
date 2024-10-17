@@ -61,39 +61,57 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
 
+function filterMasonServers(servers)
+    local masonServers = {}
+    for _, server in ipairs(servers) do
+        if server.install then
+            table.insert(masonServers, server.name)
+        end
+    end
+
+    return masonServers
+end
+
 -- Language servers
 -- Debug with print(vim.inspect(vim.lsp.get_active_clients()))
 local servers = {
-    "astro",
-    "csharp_ls",
-    "dhall_lsp_server",
-    "docker_compose_language_service",
-    "dockerls",
-    "elixirls",
-    "emmet_ls",
-    "eslint",
-    "gopls",
-    "graphql",
-    "helm_ls",
-    "hls",
-    "html",
-    "jsonls",
-    "jsonnet_ls",
-    "lua_ls",
-    "marksman",
-    "mdx_analyzer",
-    "ocamllsp",
-    "prismals",
-    "pyright",
-    "svelte",
-    "tailwindcss",
-    "terraformls",
-    "texlab",
-    "tflint",
-    "tsserver",
-    "volar",
-    "yamlls",
+    { name = "astro",                           install = true },
+    { name = "bashls",                          install = true },
+    { name = "clangd",                          install = true },
+    { name = "csharp_ls",                       install = true },
+    { name = "dhall_lsp_server",                install = true },
+    { name = "docker_compose_language_service", install = true },
+    { name = "dockerls",                        install = true },
+    { name = "elixirls",                        install = true },
+    { name = "emmet_ls",                        install = true },
+    { name = "eslint",                          install = true },
+    { name = "gleam",                           install = false },
+    { name = "gopls",                           install = true },
+    { name = "graphql",                         install = true },
+    { name = "helm_ls",                         install = true },
+    { name = "hls",                             install = true },
+    { name = "html",                            install = true },
+    { name = "jsonls",                          install = true },
+    { name = "jsonnet_ls",                      install = true },
+    { name = "lua_ls",                          install = true },
+    { name = "marksman",                        install = true },
+    { name = "mdx_analyzer",                    install = true },
+    { name = "ocamllsp",                        install = true },
+    { name = "prismals",                        install = true },
+    { name = "pyright",                         install = true },
+    { name = "ruby_lsp",                        install = true },
+    { name = "ruff_lsp",                        install = true },
+    { name = "svelte",                          install = true },
+    { name = "tailwindcss",                     install = true },
+    { name = "terraformls",                     install = true },
+    { name = "texlab",                          install = true },
+    { name = "tflint",                          install = true },
+    { name = "ts_ls",                           install = true },
+    { name = "volar",                           install = true },
+    { name = "yamlls",                          install = true },
 }
+
+local masonServers = filterMasonServers(servers)
 
 -- User configurations for individual servers
 local configs = {
@@ -143,9 +161,9 @@ local config_defaults = {
 
 -- Setup configurations
 for _, lsp in ipairs(servers) do
-    local config = configs[lsp] or {}
+    local config = configs[lsp.name] or {}
     config = vim.tbl_extend("keep", config, config_defaults)
-    lspconfig[lsp].setup(config)
+    lspconfig[lsp.name].setup(config)
 end
 
 -- Change diagnostic signs.
@@ -171,4 +189,4 @@ vim.diagnostic.config({
 --     indicator_ok = 'Ok',
 -- })
 
-return servers
+return masonServers

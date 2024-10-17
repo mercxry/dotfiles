@@ -1,41 +1,26 @@
 return {
     { "christoomey/vim-tmux-navigator" }, -- Tmux navigator integration
+    { "mfussenegger/nvim-overfly" },
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v2.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-        },
+        'echasnovski/mini.nvim',
+        version = '*',
         config = function()
-            vim.g.neo_tree_remove_legacy_commands = 1
+            require('mini.ai').setup()
+            require('mini.basics').setup()
 
-            require("neo-tree").setup({
-                window = {
-                    position = "left",
+            require('mini.files').setup({
+                mappings = {
+                    go_in_plus = '<CR>',
                 },
-                filesystem = {
-                    filtered_items = {
-                        visible = true,
-                        hide_dotfiles = false,
-                        hide_gitignored = true,
-                        never_show = {
-                            ".DS_Store",
-                            "thumbs.db"
-                        },
-                    },
-                    follow_current_file = true,
-                    hijack_netrw_behavior = "open_current",
-                    use_libuv_file_watcher = true,
+                windows = {
+                    preview = true,
+                    width_nofocus = 25,
+                    width_preview = 100,
                 }
             })
 
             local opts = { noremap = true, silent = true }
-            vim.api.nvim_set_keymap('n', '<C-n>', '<cmd>Neotree focus filesystem toggle<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<leader>tf', '<cmd>Neotree focus filesystem float toggle<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<leader>tb', '<cmd>Neotree focus buffers float toggle<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<leader>tg', '<cmd>Neotree focus git_status float toggle<CR>', opts)
+            vim.api.nvim_set_keymap('n', '<C-n>', '<cmd>lua MiniFiles.open()<CR>', opts)
         end
     },
     {
@@ -81,8 +66,15 @@ return {
     },
     {
         "karb94/neoscroll.nvim",
+        event = { "BufReadPost", "BufNewFile" },
         config = function()
-            require("neoscroll").setup()
+            local opts = {
+                mappings = {
+                    "<C-u>",
+                    "<C-d>",
+                },
+            }
+            require("neoscroll").setup(opts)
         end,
     },
     {
@@ -112,7 +104,7 @@ return {
                     -- Instead of true it can also be a list of languages
                     additional_vim_regex_highlighting = false,
                 },
-                ignore_install = { "phpdoc", "tree-sitter-phpdoc" },
+                ignore_install = { "org", "phpdoc", "tree-sitter-phpdoc" },
                 -- indent = {
                 --   enable = true
                 -- }
@@ -459,12 +451,124 @@ return {
     },
     {
         'stevearc/oil.nvim',
-        opts = {},
-        -- Optional dependencies
+        cmd = "Oil",
+        keys = {
+            { "-", "<cmd>Oil --float<cr>", desc = "Opens Oil in a float" },
+        },
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            default_file_explorer = false,
+            delete_to_trash = true,
+            skip_confirm_for_simple_edits = true,
+            watch_for_changes = true,
+            keymaps = {
+                ["<C-p>"] = false,
+            },
+            view_options = {
+                show_hidden = true,
+            },
+        }
     },
     {
         'wakatime/vim-wakatime',
         lazy = false
+    },
+    --[[ { ]]
+    --[[     "David-Kunz/gen.nvim", ]]
+    --[[     opts = { ]]
+    --[[         model = "deepseek-coder-v2:latest", ]]
+    --[[     }, ]]
+    --[[ }, ]]
+    --[[ { ]]
+    --[[     "yetone/avante.nvim", ]]
+    --[[     event = "VeryLazy", ]]
+    --[[     lazy = false, ]]
+    --[[     version = false, ]]
+    --[[     opts = { ]]
+    --[[         provider = "claude", ]]
+    --[[         claude = { ]]
+    --[[             endpoint = "https://api.anthropic.com", ]]
+    --[[             model = "claude-3-5-sonnet-20240620", ]]
+    --[[             temperature = 0, ]]
+    --[[             max_tokens = 4096, ]]
+    --[[         }, ]]
+    --[[     }, ]]
+    --[[     build = "make", ]]
+    --[[     dependencies = { ]]
+    --[[         "stevearc/dressing.nvim", ]]
+    --[[         "nvim-lua/plenary.nvim", ]]
+    --[[         "MunifTanjim/nui.nvim", ]]
+    --[[         "nvim-tree/nvim-web-devicons", ]]
+    --[[         { ]]
+    --[[             -- support for image pasting ]]
+    --[[             "HakonHarnes/img-clip.nvim", ]]
+    --[[             event = "VeryLazy", ]]
+    --[[             opts = { ]]
+    --[[                 -- recommended settings ]]
+    --[[                 default = { ]]
+    --[[                     embed_image_as_base64 = false, ]]
+    --[[                     prompt_for_file_name = false, ]]
+    --[[                     drag_and_drop = { ]]
+    --[[                         insert_mode = true, ]]
+    --[[                     }, ]]
+    --[[                     -- required for Windows users ]]
+    --[[                     use_absolute_path = true, ]]
+    --[[                 }, ]]
+    --[[             }, ]]
+    --[[         }, ]]
+    --[[         { ]]
+    --[[             -- Make sure to set this up properly if you have lazy=true ]]
+    --[[             'MeanderingProgrammer/render-markdown.nvim', ]]
+    --[[             opts = { ]]
+    --[[                 file_types = { "markdown", "Avante" }, ]]
+    --[[             }, ]]
+    --[[             ft = { "markdown", "Avante" }, ]]
+    --[[         }, ]]
+    --[[     }, ]]
+    --[[ } ]]
+    {
+        "olimorris/codecompanion.nvim",
+        cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "hrsh7th/nvim-cmp",
+            "nvim-telescope/telescope.nvim",
+            { "stevearc/dressing.nvim", opts = {} }
+        },
+        config = function()
+            require("codecompanion").setup({
+                adapters = {
+                    anthropic = function()
+                        local anthropic_api_key = vim.fn.system { 'op', 'item', 'get', 'ln3dksdvm72pci7dmgfxdwuosm', '--reveal', '--fields', 'label=credential' }
+                        return require("codecompanion.adapters").extend("anthropic", {
+                            env = {
+                                api_key = "MY_OTHER_ANTHROPIC_KEY"
+                            },
+                        })
+                    end,
+                },
+                strategies = {
+                    chat = {
+                        adapter = "anthropic",
+                    },
+                    agent = {
+                        adapter = "anthropic",
+                    },
+                },
+            })
+        end
+    },
+    {
+        'Exafunction/codeium.vim',
+        config = function()
+            -- Change '<C-g>' here to any keycode you like.
+            vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+            vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
+                { expr = true, silent = true })
+            vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
+                { expr = true, silent = true })
+            vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+        end
     }
 }

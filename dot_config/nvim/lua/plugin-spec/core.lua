@@ -1,15 +1,10 @@
 return {
     { "airblade/vim-rooter" }, -- Set the working directory to the project root
     { "romainl/vim-cool" },
+    { "nvim-neotest/nvim-nio" },
     {
         "nvim-lua/popup.nvim",
         dependencies = "nvim-lua/plenary.nvim"
-    },
-    {
-        "goolord/alpha-nvim",
-        config = function()
-            require("alpha").setup(require("alpha.themes.dashboard").config)
-        end,
     },
     {
         "stevearc/dressing.nvim",
@@ -43,19 +38,20 @@ return {
         },
     },
     {
-        "nathom/filetype.nvim",
+        "nosduco/remote-sshfs.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" },
         opts = {
-            overrides = {
-                extensions = {
-                    tf = "terraform",
-                    astro = "astro",
-                    sql = "pgsql",
-                    gd = "gdscript",
-                },
-                complex = {
-                    [".*%.conf%.d/.*%.conf"] = "nginx",
-                    [".*justfile.*"] = "just",
+            connections = {
+                sshfs_args = {
+                    "-o reconnect",
+                    "-o ConnectTimeout=5",
+                    "-o defer_permissions"
                 }
+            },
+            ui = {
+                confirm = {
+                    connect = false,
+                },
             },
         },
     },
