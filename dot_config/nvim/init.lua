@@ -10,7 +10,5 @@
 -- https://twitter.com/mttni
 -- https://github.com/mercxry
 
-require 'globals'
-require 'mappings'
-
-require 'load_lazy'
+require "core"
+require "load_lazy"
