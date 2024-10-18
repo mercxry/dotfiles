@@ -31,6 +31,9 @@ vim.api.nvim_set_keymap(
 -- open lazy
 vim.api.nvim_set_keymap("n", "<leader>L", "<cmd>Lazy<cr>", { silent = true, desc = "Lazy" })
 
+-- map <Esc> to exit terminal mode in Neovim
+vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+
 -- command misstypings
 local command_mappings = {
   W = "w",

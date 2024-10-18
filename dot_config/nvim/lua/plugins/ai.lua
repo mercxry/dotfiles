@@ -17,19 +17,16 @@ return {
       require("codecompanion").setup {
         adapters = {
           anthropic = function()
-            local anthropic_api_key = vim.fn.system {
-              "op",
-              "item",
-              "get",
-              "ln3dksdvm72pci7dmgfxdwuosm",
-              "--reveal",
-              "--fields",
-              "label=credential",
-            }
-
             return require("codecompanion.adapters").extend("anthropic", {
               env = {
-                api_key = anthropic_api_key,
+                api_key = "cmd:op item get ln3dksdvm72pci7dmgfxdwuosm --reveal --fields label=credential",
+              },
+            })
+          end,
+          openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+              env = {
+                api_key = "cmd:op item get dzu4nfmu6cekgh3u4aot5ivuxu --reveal --fields label=credential",
               },
             })
           end,
