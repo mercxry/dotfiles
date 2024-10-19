@@ -30,6 +30,9 @@ return {
         -- undotree
         { "<leader>u", icon = { icon = "󰕌 ", color = "azure" } },
 
+        -- kubectl
+        { "<leader>K", icon = { icon = "󱃾 ", color = "blue" } },
+
         -- hidden
         { "<leader>psvg", hidden = true },
         { "<leader>]", hidden = true },

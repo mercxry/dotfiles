@@ -15,8 +15,8 @@
 
 - **OS:** macOS 15 Sequoia
 - **Terminal:** iTerm2
-  - **Theme:** [Kanagawa](https://github.com/mercxry/dotfiles/blob/main/private_Documents/iTerm2-Themes/Kanagawa.itermcolors)
-  - **Font:** [Jetbrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf)
+  - **Theme:** [Kanagawa](https://github.com/mercxry/dotfiles/blob/main/private_Documents/iTerm2-Themes/kanagawa.itermcolors)
+  - **Font:** [Jetbrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/Ligatures/Regular)
 - **Terminal Multiplexer:** tmux
   - **Config:** [.tmux.conf](https://github.com/mercxry/dotfiles/blob/main/dot_tmux.conf)
 - **Editor**
