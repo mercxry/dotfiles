@@ -7,6 +7,20 @@ return {
       {
         mode = { "n", "v" },
 
+        -- icons:
+        -- - https://www.nerdfonts.com/cheat-sheet
+
+        -- colors:
+        -- - azure
+        -- - blue
+        -- - cyan
+        -- - green
+        -- - grey
+        -- - orange
+        -- - purple
+        -- - red
+        -- - yellow
+
         -- sets the title of the popup
         { "<leader>", group = "leader" },
 
@@ -14,7 +28,7 @@ return {
         { "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "yellow" } },
         { "<leader>c", group = "code" },
         { "<leader>f", group = "file/find" },
-        { "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
+        { "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "orange" } },
 
         -- git
         { "<leader>g", group = "git" },
@@ -32,6 +46,9 @@ return {
 
         -- kubectl
         { "<leader>K", icon = { icon = "󱃾 ", color = "blue" } },
+
+        -- obsidian
+        { "<leader>o", group = "obsidian", icon = { icon = "󰠮 ", color = "cyan" } },
 
         -- hidden
         { "<leader>psvg", hidden = true },
