@@ -1,7 +1,7 @@
 [user]
 	name = Matteo Martellini
 	email = git@mercxry.me
-	signingkey = 6BDF93955FBE746D
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDuGT1Im9WhvqgcBuin06bkemPy4JEhZdMoR8twUl8Uq
 [core]
 	editor = nvim
 [init]
@@ -9,4 +9,18 @@
 [commit]
 	gpgsign = true
 [gpg]
-	program = gpg
+	format = ssh
+
+[gpg "ssh"]
+    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com
+
+[url "https://github.com/rust-lang/crates.io-index"]
+    insteadOf = https://github.com/rust-lang/crates.io-index
+
+[pull]
+	rebase = true
+[advice]
+	skippedCherryPicks = false
