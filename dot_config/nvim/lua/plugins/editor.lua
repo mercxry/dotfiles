@@ -90,10 +90,4 @@ return {
     "wakatime/vim-wakatime",
     lazy = false,
   },
-  {
-    "smilhey/ed-cmd.nvim",
-    config = function()
-      require("ed-cmd").setup {}
-    end,
-  },
 }

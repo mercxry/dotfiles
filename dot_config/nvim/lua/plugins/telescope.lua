@@ -59,6 +59,7 @@ return {
     config = function()
       local M = {}
 
+      -- fallback to find_files if git_files fails
       M.project_files = function()
         local opts = {}
         local ok = pcall(require("telescope.builtin").git_files, opts)
@@ -69,6 +70,16 @@ return {
 
       require("telescope").setup {
         defaults = {
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim", -- trims trailing whitespace
+          },
           file_ignore_patterns = { "node_modules", "^.git/", "^.obsidian/" },
         },
         pickers = {
