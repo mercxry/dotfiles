@@ -1,7 +1,7 @@
 # dotfiles
 
 <p align="center">
-  <img src="https://github.com/mercxry/dotfiles/blob/main/assets/neofetch.png?raw=true" alt="iTerm with neofetch"/>
+  <img src="https://github.com/mercxry/dotfiles/blob/main/assets/full_setup.png?raw=true" alt="Showoff image of a full size setup"/>
 </p>
 
 ## Table of Contents
