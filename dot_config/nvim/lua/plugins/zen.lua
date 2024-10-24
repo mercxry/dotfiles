@@ -27,6 +27,10 @@ return {
         if lualine then
           vim.o.laststatus = 2
           require("lualine").hide()
+
+          if vim.bo.filetype == "markdown" then
+            vim.wo.wrap = true
+          end
         end
       end,
       on_close = function()
@@ -35,6 +39,10 @@ return {
         if lualine then
           vim.o.laststatus = 3
           require("lualine").hide { unhide = true }
+
+          if vim.bo.filetype == "markdown" then
+            vim.wo.wrap = false
+          end
         end
       end,
     },

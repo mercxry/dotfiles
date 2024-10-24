@@ -80,7 +80,7 @@ return {
             "--smart-case",
             "--trim", -- trims trailing whitespace
           },
-          file_ignore_patterns = { "node_modules", "^.git/", "^.obsidian/" },
+          file_ignore_patterns = { "node_modules", "^.git/", "^.obsidian/", "^.sqlx/" },
         },
         pickers = {
           find_files = {

@@ -1,6 +1,7 @@
 return {
   {
     "olimorris/codecompanion.nvim",
+    cond = vim.fn.hostname() == "draconis",
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     keys = {
       { "<leader>ac", "<cmd>CodeCompanionChat<cr>", desc = "Chat" },
@@ -44,6 +45,7 @@ return {
   },
   {
     "Exafunction/codeium.vim",
+    cond = vim.fn.hostname() == "draconis",
     config = function()
       -- Change '<C-g>' here to any keycode you like.
       vim.keymap.set("i", "<C-g>", function()
