@@ -29,6 +29,7 @@ return {
         { "<leader>c", group = "code" },
         { "<leader>f", group = "file/find" },
         { "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "orange" } },
+        { "<leader>t", group = "test" },
 
         -- git
         { "<leader>g", group = "git" },

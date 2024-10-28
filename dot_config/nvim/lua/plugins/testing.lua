@@ -13,7 +13,6 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "<leader>t",  "",                                                                                 desc = "+test" },
       { "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end,                      desc = "Run File" },
       { "<leader>tT", function() require("neotest").run.run(vim.uv.cwd()) end,                            desc = "Run All Test Files" },
       { "<leader>tr", function() require("neotest").run.run() end,                                        desc = "Run Nearest" },
@@ -30,7 +29,7 @@ return {
         adapters = {
           require "rustaceanvim.neotest",
           require "neotest-go",
-          require("neotest-gtest").setup {}, -- cpp
+          --[[ require("neotest-gtest").setup {}, -- cpp ]]
         },
       }
     end,
