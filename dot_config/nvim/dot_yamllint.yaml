@@ -8,3 +8,9 @@ rules:
 
   indentation:
     indent-sequences: consistent
+
+  document-start:
+    present: false
+
+  comments:
+    min-spaces-from-content: 1

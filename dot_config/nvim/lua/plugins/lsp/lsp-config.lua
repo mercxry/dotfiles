@@ -23,6 +23,8 @@ return {
       { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" } },
       { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" } },
       { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+      { "<leader>cf", vim.lsp.buf.format, desc = "Format Document", mode = { "n", "v" } },
+      { "<leader>cF", vim.lsp.buf.format, desc = "Format Range", mode = "v" },
     },
     config = function()
       local lspconfig = require "lspconfig"

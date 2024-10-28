@@ -13,6 +13,9 @@ return {
           -- Lua
           null_ls.builtins.formatting.stylua,
 
+          -- Fish
+          null_ls.builtins.diagnostics.fish,
+
           -- Shell
           null_ls.builtins.formatting.shfmt,
           null_ls.builtins.formatting.shellharden,

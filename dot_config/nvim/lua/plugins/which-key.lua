@@ -51,6 +51,9 @@ return {
         -- obsidian
         { "<leader>o", group = "obsidian", icon = { icon = "󰠮 ", color = "cyan" } },
 
+        -- dadbod
+        { "<leader>D", group = "database", icon = { icon = " ", color = "yellow" } },
+
         -- hidden
         { "<leader>psvg", hidden = true },
         { "<leader>]", hidden = true },
