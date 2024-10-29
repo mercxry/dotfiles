@@ -9,5 +9,6 @@ vim.filetype.add {
   pattern = {
     [".*%.conf%.d/.*%.conf"] = "nginx",
     [".*justfile.*"] = "just",
+    ["rclone.conf"] = "ini",
   },
 }
