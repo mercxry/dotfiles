@@ -20,8 +20,15 @@ return {
       },
     },
     config = function()
-      require("mini.ai").setup()
       require("mini.basics").setup()
+
+      local ai = require "mini.ai"
+      ai.setup {
+        n_lines = 500,
+        custom_textobjects = {
+          f = ai.gen_spec.treesitter { a = "@function.outer", i = "@function.inner" },
+        },
+      }
 
       require("mini.files").setup {
         options = {
