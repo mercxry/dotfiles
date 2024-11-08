@@ -105,6 +105,7 @@ return {
         { name = "ts_ls", install = true },
         { name = "volar", install = true },
         { name = "yamlls", install = true },
+        { name = "zls", install = true },
       }
 
       local masonServers = filterMasonServers(servers)
