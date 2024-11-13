@@ -1,2 +1,3 @@
 .DS_Store
 fish_variables
+dot_config/zellij/plugins/*.wasm

@@ -1,0 +1,250 @@
+theme "kanagawa"
+mouse_mode true
+scroll_buffer_size 1000000
+session_serialization true
+
+plugins {
+    choose-tree location="file:~/.config/zellij/plugins/zellij-choose-tree.wasm"
+    sessionizer location="file:~/.config/zellij/plugins/zellij-sessionizer.wasm"
+    vim-zellij-navigator location="file:~/.config/zellij/plugins/vim-zellij-navigator.wasm"
+}
+
+pane_frames true
+ui {
+    pane_frames {
+        rounded_corners false
+        hide_session_name true
+    }
+}
+
+keybinds clear-defaults=true {
+    locked {
+        bind "Ctrl g" { SwitchToMode "Normal"; }
+    }
+    resize {
+        bind "=" "+" { Resize "Increase"; }
+        bind "-" { Resize "Decrease"; }
+
+        bind "h" "Left" { Resize "Increase Left"; }
+        bind "j" "Down" { Resize "Increase Down"; }
+        bind "k" "Up" { Resize "Increase Up"; }
+        bind "l" "Right" { Resize "Increase Right"; }
+
+        bind "H" { Resize "Decrease Left"; }
+        bind "J" { Resize "Decrease Down"; }
+        bind "K" { Resize "Decrease Up"; }
+        bind "L" { Resize "Decrease Right"; }
+    }
+    pane {
+        bind "h" "Left" { MoveFocus "Left"; }
+        bind "l" "Right" { MoveFocus "Right"; }
+        bind "j" "Down" { MoveFocus "Down"; }
+        bind "k" "Up" { MoveFocus "Up"; }
+
+        bind "c" { NewPane; SwitchToMode "Normal"; }
+        bind "-" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "|" { NewPane "Right"; SwitchToMode "Normal"; }
+
+        bind "x" { CloseFocus; SwitchToMode "Normal"; }
+        bind "f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+        bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
+        
+        bind "z" { TogglePaneFrames; SwitchToMode "Normal"; }
+        bind "r" "," { SwitchToMode "RenamePane"; PaneNameInput 0;}
+    }
+    move {
+        bind "h" "Left" { MovePane "Left"; }
+        bind "j" "Down" { MovePane "Down"; }
+        bind "k" "Up" { MovePane "Up"; }
+        bind "l" "Right" { MovePane "Right"; }
+    }
+    tab {
+        bind "," "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+
+        bind "h" "Left" "Up" "k" { GoToPreviousTab; }
+        bind "l" "Right" "Down" "j" { GoToNextTab; }
+
+        bind "c" "n" { NewTab; SwitchToMode "Normal"; }
+        bind "x" { CloseTab; SwitchToMode "Normal"; }
+        bind "b" "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
+
+        bind "1" { GoToTab 1; SwitchToMode "Normal"; }
+        bind "2" { GoToTab 2; SwitchToMode "Normal"; }
+        bind "3" { GoToTab 3; SwitchToMode "Normal"; }
+        bind "4" { GoToTab 4; SwitchToMode "Normal"; }
+        bind "5" { GoToTab 5; SwitchToMode "Normal"; }
+        bind "6" { GoToTab 6; SwitchToMode "Normal"; }
+        bind "7" { GoToTab 7; SwitchToMode "Normal"; }
+        bind "8" { GoToTab 8; SwitchToMode "Normal"; }
+        bind "9" { GoToTab 9; SwitchToMode "Normal"; }
+
+        bind "Tab" { ToggleTab; }
+    }
+    scroll {
+        bind "q" { SwitchToMode "Normal"; }
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "s" "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+
+        bind "g" { ScrollToTop; }
+        bind "Ctrl c" "Shift g" { ScrollToBottom; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "Ctrl d" "PageDown" "Right" "l" { PageScrollDown; }
+        bind "Ctrl u" "PageUp" "Left" "h" { PageScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+    }
+    search {
+        bind "g" { ScrollToTop; }
+        bind "Ctrl c" "Shift g" { ScrollToBottom; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "Ctrl d" "PageDown" "Right" "l" { PageScrollDown; }
+        bind "Ctrl u" "PageUp" "Left" "h" { PageScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+
+        bind "n" { Search "down"; }
+        bind "p" { Search "up"; }
+        bind "c" { SearchToggleOption "CaseSensitivity"; }
+        bind "w" { SearchToggleOption "Wrap"; }
+        bind "o" { SearchToggleOption "WholeWord"; }
+    }
+    entersearch {
+        bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
+        bind "Enter" { SwitchToMode "Search"; }
+    }
+    renametab {
+        bind "Ctrl c" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
+    }
+    renamepane {
+        bind "Ctrl c" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+    }
+    session {
+        bind "d" { Detach; }
+        bind "q" { Quit; }
+
+        bind "s" {
+            LaunchOrFocusPlugin "choose-tree" {
+                floating true
+                move_to_focused_tab true
+                show_plugins false
+            };
+            SwitchToMode "Normal";
+        }
+
+        bind "p" {
+            LaunchOrFocusPlugin "sessionizer" {
+                floating true
+                move_to_focused_tab true
+                cwd "/"
+                root_dirs "/Users/mercxry/code"
+                session_layout "default"
+            };
+            SwitchToMode "Normal";
+        }
+    }
+    tmux {
+        // Session shortcuts
+        bind "d" { Detach; }
+        bind "q" { Quit; }
+
+        // Pane shortcuts
+        bind "-" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "|" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "c" { NewTab; SwitchToMode "Normal"; }
+        bind "," { SwitchToMode "RenameTab"; }
+        bind "b" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
+
+        // Resizing
+        bind "h" "Left" { Resize "Increase Left"; }
+        bind "j" "Down" { Resize "Increase Down"; }
+        bind "k" "Up" { Resize "Increase Up"; }
+        bind "l" "Right" { Resize "Increase Right"; }
+        bind "H" { Resize "Decrease Left"; }
+        bind "J" { Resize "Decrease Down"; }
+        bind "K" { Resize "Decrease Up"; }
+        bind "L" { Resize "Decrease Right"; }
+
+        // Change modes
+        bind "p" { SwitchToMode "Pane"; }
+        bind "r" { SwitchToMode "Resize"; }
+        bind "[" { SwitchToMode "Scroll"; }
+        bind "/" { SwitchToMode "Search"; }
+        bind "s" { SwitchToMode "Session"; }
+        bind "t" { SwitchToMode "Tab"; }
+        bind "m" { SwitchToMode "Move"; }
+        bind "g" { SwitchToMode "Locked"; }
+
+        // Tab switching
+        bind "1" { GoToTab 1; }
+        bind "2" { GoToTab 2; }
+        bind "3" { GoToTab 3; }
+        bind "4" { GoToTab 4; }
+        bind "5" { GoToTab 5; }
+        bind "6" { GoToTab 6; }
+        bind "7" { GoToTab 7; }
+        bind "8" { GoToTab 8; }
+        bind "9" { GoToTab 9; }
+
+    }
+    shared_except "locked" {
+        // Pane movements
+        bind "Ctrl h" {
+            MessagePlugin "vim-zellij-navigator" {
+                name "move_focus_or_tab";
+                payload "left";
+
+                move_mod "ctrl";
+            };
+        }
+
+        bind "Ctrl j" {
+            MessagePlugin "vim-zellij-navigator" {
+                name "move_focus";
+                payload "down";
+
+                move_mod "ctrl";
+            };
+        }
+
+        bind "Ctrl k" {
+            MessagePlugin "vim-zellij-navigator" {
+                name "move_focus";
+                payload "up";
+
+                move_mod "ctrl";
+            };
+        }
+
+        bind "Ctrl l" {
+            MessagePlugin "vim-zellij-navigator" {
+                name "move_focus_or_tab";
+                payload "right";
+
+                move_mod "ctrl";
+            };
+        }
+
+        // Switch tabs
+        bind "Ctrl 1" { GoToTab 1; SwitchToMode "Normal"; }
+        bind "Ctrl 2" { GoToTab 2; SwitchToMode "Normal"; }
+        bind "Ctrl 3" { GoToTab 3; SwitchToMode "Normal"; }
+        bind "Ctrl 4" { GoToTab 4; SwitchToMode "Normal"; }
+        bind "Ctrl 5" { GoToTab 5; SwitchToMode "Normal"; }
+        bind "Ctrl 6" { GoToTab 6; SwitchToMode "Normal"; }
+        bind "Ctrl 7" { GoToTab 7; SwitchToMode "Normal"; }
+        bind "Ctrl 8" { GoToTab 8; SwitchToMode "Normal"; }
+        bind "Ctrl 9" { GoToTab 9; SwitchToMode "Normal"; }
+    }
+    shared_except "normal" "locked" {
+        bind "Enter" "Esc" { SwitchToMode "Normal"; }
+    }
+    shared_except "tmux" "locked" {
+        bind "Ctrl a" { SwitchToMode "Tmux"; }
+    }
+}

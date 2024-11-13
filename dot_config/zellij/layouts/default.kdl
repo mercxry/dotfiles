@@ -1,0 +1,30 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
+                format_left   "{mode}{tabs}"
+                format_center ""
+                format_right  "{session}"
+                format_space  ""
+
+                mode_normal  "#[bg=#87CEFA,fg=black,bold] NORM "
+                mode_tmux    "#[bg=#32CD32,fg=black,bold] TMUX "
+                mode_pane    "#[bg=#20B2AA,fg=black,bold] PANE "
+                mode_resize  "#[bg=#20B2AA,fg=black,bold] RESZ "
+                mode_move    "#[bg=#20B2AA,fg=black,bold] MOVE "
+                mode_scroll  "#[bg=#FFC387,fg=black,bold] SCRL "
+                mode_search  "#[bg=#FFC387,fg=black,bold] SRCH "
+                mode_session "#[bg=#00CED1,fg=black,bold] SESS "
+                mode_tab     "#[bg=#FFD700,fg=black,bold] TABS "
+                mode_locked  "#[bg=#FF8787,fg=black,bold] LOCK "
+
+                tab_normal   "#[bg=#2A2A37] {index} {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}"
+                tab_active   "#[bg=#363646,bold,italic] {index} {name} {sync_indicator}{fullscreen_indicator}{floating_indicator}"
+                tab_fullscreen_indicator "□ "
+                tab_sync_indicator       "󱜠 "
+                tab_floating_indicator   "󰉈 "
+            }
+        }
+        children
+    }
+}
