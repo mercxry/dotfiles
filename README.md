@@ -15,6 +15,7 @@
 
 - **OS:** macOS
 - **Terminal:** Ghostty
+  - **Shell:** Fish
   - **Theme:** Kanagawabones
   - **Font:** JetBrains Mono
 - **Terminal Multiplexer:** tmux (currently trying zellij)
