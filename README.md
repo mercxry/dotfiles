@@ -13,11 +13,11 @@
 
 ## Configuration
 
-- **OS:** macOS 15 Sequoia
-- **Terminal:** iTerm2
-  - **Theme:** [Kanagawa](https://github.com/mercxry/dotfiles/blob/main/private_Documents/iTerm2-Themes/kanagawa.itermcolors)
-  - **Font:** [Jetbrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/Ligatures/Regular)
-- **Terminal Multiplexer:** tmux
+- **OS:** macOS
+- **Terminal:** Ghostty
+  - **Theme:** Kanagawabones
+  - **Font:** JetBrains Mono
+- **Terminal Multiplexer:** tmux (currently trying zellij)
   - **Config:** [.tmux.conf](https://github.com/mercxry/dotfiles/blob/main/dot_tmux.conf)
 - **Editor**
   - **neovim**

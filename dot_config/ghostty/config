@@ -1,0 +1,31 @@
+# vim:fileencoding=utf-8:foldmethod=marker
+
+# Font
+font-family = "JetBrains Mono"
+font-size = 12
+
+# Style
+title = " "
+theme = "kanagawabones"
+macos-titlebar-proxy-icon = "hidden"
+
+# Tmux keybinds
+# keybind = ctrl+0=text:\x01\x30
+# keybind = ctrl+1=text:\x01\x31
+# keybind = ctrl+2=text:\x01\x32
+# keybind = ctrl+3=text:\x01\x33
+# keybind = ctrl+4=text:\x01\x34
+# keybind = ctrl+5=text:\x01\x35
+# keybind = ctrl+6=text:\x01\x36
+# keybind = ctrl+7=text:\x01\x37
+# keybind = ctrl+8=text:\x01\x38
+# keybind = ctrl+9=text:\x01\x39
+
+# Quick terminal
+keybind = global:super+shift+enter=toggle_quick_terminal
+
+# Misc
+copy-on-select = true
+auto-update = "download"
+macos-option-as-alt = true
+mouse-hide-while-typing = true
