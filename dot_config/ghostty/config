@@ -28,4 +28,3 @@ keybind = global:super+shift+enter=toggle_quick_terminal
 copy-on-select = true
 auto-update = "download"
 macos-option-as-alt = true
-mouse-hide-while-typing = true
