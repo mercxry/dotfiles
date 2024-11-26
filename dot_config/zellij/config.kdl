@@ -36,6 +36,9 @@ keybinds clear-defaults=true {
         bind "L" { Resize "Decrease Right"; }
     }
     pane {
+        bind "]" { BreakPaneRight; }
+        bind "[" { BreakPaneLeft; }
+
         bind "h" "Left" { MoveFocus "Left"; }
         bind "l" "Right" { MoveFocus "Right"; }
         bind "j" "Down" { MoveFocus "Down"; }
@@ -60,6 +63,9 @@ keybinds clear-defaults=true {
         bind "l" "Right" { MovePane "Right"; }
     }
     tab {
+        bind "[" { MoveTab "Left"; }
+        bind "]" { MoveTab "Right"; }
+
         bind "," "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
 
         bind "h" "Left" "Up" "k" { GoToPreviousTab; }
@@ -157,7 +163,7 @@ keybinds clear-defaults=true {
         bind "|" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "c" { NewTab; SwitchToMode "Normal"; }
-        bind "," { SwitchToMode "RenameTab"; }
+        bind "," { SwitchToMode "RenameTab"; PaneNameInput 0; }
         bind "b" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
 
         // Resizing
