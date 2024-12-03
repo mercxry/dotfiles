@@ -13,45 +13,33 @@
 
 ## Configuration
 
-- **OS:** macOS
+- **Operating System:** macOS (Apple Silicon)
 - **Terminal:** Ghostty
-  - **Shell:** Fish
-  - **Theme:** Kanagawabones
   - **Font:** JetBrains Mono
-- **Terminal Multiplexer:** tmux (currently trying zellij)
-  - **Config:** [.tmux.conf](https://github.com/mercxry/dotfiles/blob/main/dot_tmux.conf)
-- **Editor**
-  - **neovim**
-    - **Theme:** [Kanagawa](https://github.com/rebelot/kanagawa.nvim)
-    - **Config:** [.config/nvim](https://github.com/mercxry/dotfiles/tree/main/dot_config/nvim)
+    - Nerd font patched
+    - With ligatures
+  - **Theme:** Kanagawa(bones)
+  - **Shell:** Fish
+    - **Prompt:** Starship
+    - **History:** Atuin
+  - **Editor:** Neovim
+  - **Multiplexer:** Zellij
 
 ## Getting started
 
-1. Clone repository
-
-   ```sh
-   chezmoi init mercxry
-   ```
-
-2. Install [Homebrew](https://brew.sh)
-
-   ```sh
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-
-3. Install packages from Brewfile
-
-   ```sh
-   brew bundle install
-   ```
-
-   or just install chezmoi
+1. Install chezmoi
 
    ```sh
    brew install chezmoi
    ```
 
-4. Apply chezmoi dotfiles
+2. Clone repository
+
+   ```sh
+   chezmoi init mercxry
+   ```
+
+3. Apply chezmoi dotfiles
 
    ```sh
    chezmoi apply
