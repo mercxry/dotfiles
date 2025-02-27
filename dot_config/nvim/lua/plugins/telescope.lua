@@ -1,17 +1,35 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      {
+        "nvim-telescope/telescope-live-grep-args.nvim",
+        version = "^1.0.0",
+      },
+    },
     keys = {
       {
         "<leader>,",
         "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
         desc = "Switch Buffer",
       },
-      { "<leader>/", "<cmd>lua require('telescope.builtin').live_grep()<CR>", desc = "Live Grep" },
-      { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+      {
+        "<leader>/",
+        "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+        desc = "Live Grep",
+      },
+      {
+        "<leader>:",
+        "<cmd>Telescope command_history<cr>",
+        desc = "Command History",
+      },
       -- find
-      { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+      {
+        "<leader>fb",
+        "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
+        desc = "Buffers",
+      },
       {
         "<leader>ff",
         "<cmd>lua require('telescope.builtin').find_files()<CR>",
@@ -57,6 +75,7 @@ return {
       { "<leader>sq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix List" },
     },
     config = function()
+      local telescope = require "telescope"
       local M = {}
 
       -- fallback to find_files if git_files fails
@@ -68,7 +87,7 @@ return {
         end
       end
 
-      require("telescope").setup {
+      telescope.setup {
         defaults = {
           vimgrep_arguments = {
             "rg",
@@ -93,7 +112,8 @@ return {
         },
       }
 
-      require("telescope").load_extension "fzf"
+      telescope.load_extension "fzf"
+      telescope.load_extension "live_grep_args"
 
       return M
     end,
