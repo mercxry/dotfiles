@@ -7,6 +7,7 @@ return {
         dependencies = {
           "neovim/nvim-lspconfig",
         },
+        "saghen/blink.cmp",
       },
     },
     keys = {
@@ -31,7 +32,6 @@ return {
       local navic = require "nvim-navic"
 
       local function on_attach(client, bufnr)
-        --  Show navication
         if client.server_capabilities.documentSymbolProvider then
           navic.attach(client, bufnr)
         end
@@ -53,9 +53,8 @@ return {
       end
 
       -- Setup capabilities
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
       capabilities.textDocument.completion.completionItem.snippetSupport = true
-      -- capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
 
       function filterMasonServers(servers)
         local masonServers = {}
@@ -96,7 +95,7 @@ return {
         { name = "prismals", install = true },
         { name = "pyright", install = true },
         { name = "ruby_lsp", install = true },
-        { name = "ruff_lsp", install = true },
+        { name = "ruff", install = true },
         { name = "svelte", install = true },
         { name = "tailwindcss", install = true },
         { name = "terraformls", install = true },
@@ -143,11 +142,6 @@ return {
             },
           },
         },
-        --[[ astro = { ]]
-        --[[     init_options = { ]]
-        --[[         typescript = vim.fn.stdpath('data') .. "/mason/bin/typescript-language-server" ]]
-        --[[     } ]]
-        --[[ } ]]
       }
 
       -- User configurations for all servers

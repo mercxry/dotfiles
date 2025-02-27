@@ -62,15 +62,28 @@ return {
     end,
   },
   {
-    "windwp/nvim-spectre",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    -- stylua: ignore
+    "MagicDuck/grug-far.nvim",
     keys = {
-      { "<leader>sr", function() require("spectre").open() end, desc = "Spectre (search and replace)", },
+      {
+        "<leader>sr",
+        function()
+          require("grug-far").open { transient = true }
+        end,
+        mode = { "n", "x" },
+        desc = "Search and replace",
+      },
+      {
+        "<leader>sr",
+        function()
+          require("grug-far").open { prefills = { search = vim.fn.expand "<cword>" } }
+        end,
+        mode = { "v", "x" },
+        desc = "Search and replace (visual selection)",
+      },
     },
-    config = true,
+    config = function()
+      require("grug-far").setup {}
+    end,
   },
   {
     "jinh0/eyeliner.nvim",

@@ -1,7 +1,7 @@
 return {
   {
     "mrcjkb/rustaceanvim",
-    version = "^4", -- Pin version to avoid breaking changes
+    version = "*",
     ft = { "rust" },
     dependencies = {
       {
@@ -12,11 +12,10 @@ return {
       },
     },
     init = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
       local navic = require "nvim-navic"
 
       local function on_attach(client, bufnr)
-        --  Show navication
         if client.server_capabilities.documentSymbolProvider then
           navic.attach(client, bufnr)
         end
