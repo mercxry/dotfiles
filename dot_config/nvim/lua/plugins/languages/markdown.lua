@@ -34,13 +34,8 @@ return {
     end,
   },
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" },
-    opts = {},
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
+    "OXY2DEV/markview.nvim",
+    lazy = false,
   },
   {
     "tadmccorkle/markdown.nvim",

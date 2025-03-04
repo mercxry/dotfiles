@@ -59,6 +59,13 @@ return {
         strategies = {
           chat = {
             adapter = is_draconis and "anthropic" or "copilot",
+            slash_commands = {
+              ["file"] = {
+                opts = {
+                  provider = "telescope",
+                },
+              },
+            },
           },
           agent = {
             adapter = is_draconis and "anthropic" or "copilot",

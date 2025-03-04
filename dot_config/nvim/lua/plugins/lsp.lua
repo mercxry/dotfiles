@@ -6,7 +6,6 @@ return {
   { "liuchengxu/vista.vim" }, -- LSP symbol and tags viewer
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     config = function()
       require("fidget").setup {}
     end,
